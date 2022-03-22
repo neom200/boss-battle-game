@@ -42,14 +42,14 @@ def fight(player, boss):
         if move != None:
             if move in ['l,','r']:
                 if (move == chefe_move) or (chefe_move == 'b'):
-                    dano = boss.strength * boss.speed
+                    dano = boss.strength + boss.speed
                     player.get_damage(dano - player.get_defence(randint(0,10)))
                     print(f"{boss} gave {dano} of damage")
                 player.stamina += 1
 
             elif move == 'd':
                 if chefe_move in ['r','l','b']:
-                    dano = boss.strength * boss.speed
+                    dano = boss.strength + boss.speed
                     player.get_damage(dano - (player.get_defence(10)))
                     print(f"{boss} gave {dano} of damage")
 
@@ -60,7 +60,7 @@ def fight(player, boss):
 
             elif move == 'h':
                 if (player.pos == chefe_move) or (chefe_move == 'b'):
-                    dano = boss.strength * boss.speed
+                    dano = boss.strength + boss.speed
                     player.get_damage(dano - player.get_defence(randint(0,10)))
                     print(f"{boss} gave {dano} of damage")
 
@@ -72,27 +72,34 @@ def fight(player, boss):
 
             elif move == 'a':
                 if (player.pos == chefe_move) or (chefe_move == 'b'):
-                    dano = boss.strength * boss.speed
+                    dano = boss.strength + boss.speed
                     p_dano = player.get_attack(randint(0,10))
                     player.get_damage(dano - player.get_defence(randint(0,10)))
                     boss.life -= p_dano
                     print(f"{boss} gave {dano} of damage")
                     print(f"{player.name} gave {p_dano} of damage")
 
+                elif chefe_move in ['l','r']:
+                    p_dano = player.get_attack(randint(0,10))
+                    boss.life -= p_dano
+                    print(f"{player.name} gave {p_dano} of damage")
+
                 elif chefe_move == 'd':
                     ataque = player.get_attack(randint(0,10))
-                    boss.life -= (ataque - (boss.defence +  boss.stamina))
+                    dano_no_chefe = (ataque - (boss.defence +  boss.stamina))
+                    boss.life = (boss.life - dano_no_chefe) if dano_no_chefe > 0 else boss.life
                     print(f"{player.name} gave {ataque} of damage")
 
                 elif chefe_move == 'h':
                     ataque = player.get_attack(randint(0,10))
-                    boss.life -= (ataque - boss.defence)
+                    dano_no_chefe = (ataque - boss.defence)
+                    boss.life = (boss.life - dano_no_chefe) if dano_no_chefe > 0 else boss.life
                     boss.life += int(boss.stamina / boss.speed)
                     print(f"{player.name} gave {ataque} of damage, but {boss} healed")
         # If he/she doesn't move
         else:
             if chefe_move in ['r','l','b']:
-                dano = boss.strength * boss.speed
+                dano = boss.strength + boss.speed
                 player.get_damage(dano - player.defence)
                 print(f"{boss} gave {dano} of damage")
 
@@ -126,11 +133,6 @@ def fight(player, boss):
 def menu(player, shop, bosses):
     rodando = True
     while rodando:
-        if len(DEFEATED_BOSSES) == len(BOSSES_NAMES):
-            print("You have won the game! Congratulations!")
-            rodando = False
-            break
-        
         print("----------ON THE MENU---------")
         print("(0 - Leave) (1 - Check profile) - (2 - Shop) (3 - Boss List)")
         esc = int(input("What would you like to do?: "))
@@ -152,7 +154,7 @@ def menu(player, shop, bosses):
                 chefao = input("Your choice (by name): ")
                 chefao = bosses[BOSSES_NAMES.index(chefao)]
                 if chefao in DEFEATED_BOSSES:
-                    print("This boss has already been defeated.")
+                    print("Oh man, you already defeated that one.\n")
                 else:
                     fight(player, chefao)
 

@@ -17,7 +17,7 @@ class Shop:
         'Dagger', 'Medium Sword', 'Long Sword', 'Heavy Axe', 'Katana', 'Bow&Arrows', 'Staff', 'Long Spear', 'Large Blade'
     ]
     W_STATS = [
-        [1,1,0], [2,2,2], [3,3,4], [5,6,7], [6,7,8], [7,8,9], [8,10,12], [9,11,14], [10,12,15]
+        [1,1,0], [2,2,4], [3,3,7], [5,6,10], [6,7,12], [7,8,15], [8,10,18], [9,11,21], [10,12,25]
     ] # Stats = [level, damage, cost]
 
     def __init__(self):
@@ -39,6 +39,7 @@ class Shop:
             print("(0) Buy Weapon - (1) Buy Potion - (2) Leave")
             esc = int(input(">> Your choice (by index): "))
 
+            print()
             if esc == 2:
                 on_shop = False
             elif esc == 0:
@@ -50,9 +51,12 @@ class Shop:
                     print("This index is incorret!\n")
                 else:
                     arma = self.weapons[arma]
-                    player.money -= arma.cost
-                    player.set_weapon(arma)
-                    print("Here it is!\n")
+                    if player.money < arma.cost:
+                        print("Oh man, you can't buy it, sorry :(\n")
+                    else:
+                        player.money -= arma.cost
+                        player.set_weapon(arma)
+                        print("Here it is!\n")
 
             elif esc == 1:
                 potions = int(input("\nHow many do you want?: "))

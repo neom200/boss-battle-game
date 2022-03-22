@@ -1,10 +1,10 @@
 
 class Player:
     # strength - defence - speed - stamina
-    FIGHTER = [7, 4, 5, 8] 
-    PRIEST = [4, 7, 6, 8]
-    ELF = [5, 4, 7, 8]
-    ORC = [5, 4, 6, 9]
+    FIGHTER = [6, 3, 4, 7] 
+    PRIEST = [3, 6, 5, 7]
+    ELF = [4, 3, 6, 7]
+    ORC = [4, 3, 5, 8]
 
     def __init__(self, name, tipo):
         self.life = 20
@@ -15,10 +15,11 @@ class Player:
         self.potions = 2
         self.pos = 'r'
         self.weapon = 'no weapon'
+        self.std_life = self.life
         self.type_status()
 
     def restart(self):
-        self.life = 5 * self.level
+        self.life = 5 * self.level if (self.level > 1) else (20 + (5 * (self.level - 1)))
         self.std_life = self.life
         self.potions = self.level
         self.pos = 'r'
@@ -44,15 +45,15 @@ class Player:
     def get_attack(self, prob):
         self.stamina -= 1
         if self.stamina > 0:
-            return self.weapon.damage * self.strength
+            return self.weapon.damage + self.strength
         return 0
 
     def get_defence(self, prob):
         if prob >= 7:
             self.stamina += 1
-            return self.defence + self.speed + self.strength
-        else:
             return self.defence + self.speed
+        else:
+            return self.defence
 
     def move(self, move):
         if move == 'r':
@@ -66,6 +67,7 @@ class Player:
             self.potions -= 1
         else:
             print("\tNo potions left\n")
+        self.stamina += 1
 
     def get_damage(self, dano):
         if dano > 0:
