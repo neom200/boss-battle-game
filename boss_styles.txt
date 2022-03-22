@@ -1,0 +1,12 @@
+Sequence of Rights, Lefts, Boths, Defends and Heals
+d,r,l
+r,l,d,r,l,r,l,h
+r,l
+r,r,r,d,l,l
+l,r,h,l,l,b,l
+b,r,r,b,d,d,h
+r,l,b,h,r,r,b,d,d,d,r,l,b,l,r
+l,l,r,r,b,l,r,b
+l,l,d,l,h,r,r,d,r,d,b,b
+l,h,r,b,b,b,l,d,d,r,b
+b,d,r,d,l,h,b,h,b,d,b,h,b,h,d,r
