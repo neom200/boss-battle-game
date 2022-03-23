@@ -1,10 +1,10 @@
 
 class Player:
     # strength - defence - speed - stamina
-    FIGHTER = [5, 2, 3, 7] 
-    PRIEST = [2, 5, 4, 7]
-    ELF = [3, 2, 5, 7]
-    ORC = [3, 2, 4, 8]
+    FIGHTER = [6, 3, 4, 7] 
+    PRIEST = [3, 6, 5, 7]
+    ELF = [4, 3, 6, 7]
+    ORC = [4, 3, 5, 8]
 
     def __init__(self, name, tipo):
         self.life = 20
@@ -49,7 +49,7 @@ class Player:
         return 0
 
     def get_defence(self, prob):
-        if prob >= 7:
+        if prob >= 6:
             self.stamina += 1
             return self.defence + self.speed
         else:

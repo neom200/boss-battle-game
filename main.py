@@ -41,7 +41,7 @@ def fight(player, boss):
         if move != None:
             if move in ['l,','r']:
                 if (move == chefe_move) or (chefe_move == 'b'):
-                    dano = boss.get_attack()
+                    dano = boss.get_attack() - player.speed
                     player.get_damage(dano - player.get_defence(randint(0,10)))
                     print(f"{boss} gave {dano} of damage")
                     player.stamina -= 1
@@ -75,22 +75,24 @@ def fight(player, boss):
                 if (player.pos == chefe_move) or (chefe_move == 'b'):
                     dano = boss.get_attack()
                     player.get_damage(dano - player.get_defence(randint(0,10)))
-                    boss.life -= (p_dano - boss.defence)
+                    p_dano = p_dano - boss.defence
+                    boss.life = boss.life - p_dano if p_dano > 0 else boss.life
                     print(f"{boss} gave {dano} of damage")
                     print(f"{player.name} gave {p_dano} of damage")
 
                 elif chefe_move in ['l','r']:
-                    boss.life -= (p_dano - boss.defence)
+                    p_dano = p_dano - boss.defence
+                    boss.life = boss.life - p_dano if p_dano > 0 else boss.life
                     print(f"{player.name} gave {p_dano} of damage")
 
                 elif chefe_move == 'd':
-                    dano_no_chefe = (p_dano - (boss.defence +  boss.stamina))
-                    boss.life = (boss.life - dano_no_chefe) if dano_no_chefe > 0 else boss.life
+                    p_dano = p_dano - (boss.defence + boss.stamina)
+                    boss.life = (boss.life - p_dano) if p_dano > 0 else boss.life
                     print(f"{player.name} gave {p_dano} of damage")
 
                 elif chefe_move == 'h':
-                    dano_no_chefe = (p_dano - boss.defence)
-                    boss.life = (boss.life - dano_no_chefe) if dano_no_chefe > 0 else boss.life
+                    p_dano = p_dano - (boss.defence + boss.stamina)
+                    boss.life = (boss.life - p_dano) if p_dano > 0 else boss.life
                     boss.life += int(boss.stamina / boss.speed)
                     print(f"{player.name} gave {p_dano} of damage, but {boss} healed")
         # If he/she doesn't move
@@ -119,7 +121,7 @@ def fight(player, boss):
 
             if randint(0,boss.std_life) < boss.speed:
                 print("You gain pity money")
-                player.money += 1
+                player.money += 2
 
             lutando = False
         elif boss.life <= 0:
