@@ -1,7 +1,4 @@
 
-from numpy import ones_like
-
-
 class Weapon:
     def __init__(self, name, level, damage, cost):
         self.name = name
