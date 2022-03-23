@@ -12,7 +12,7 @@ class Player:
         self.tipo = tipo
         self.level = 1
         self.money = 1
-        self.potions = 2
+        self.potions = 4
         self.pos = 'r'
         self.weapon = 'no weapon'
         self.std_life = self.life
@@ -21,9 +21,9 @@ class Player:
     def restart(self):
         self.life = 5 * self.level if (self.level > 1) else (20 + (5 * (self.level - 1)))
         self.std_life = self.life
-        self.potions = self.level
+        self.potions = self.level + 1
         self.pos = 'r'
-        self.stamina = self.level * 2
+        self.stamina = (self.level * 2) if (self.level * 2 >= 7) else 8
 
         self.strength += 1
         self.defence += 1
@@ -63,7 +63,8 @@ class Player:
 
     def drink_potion(self):
         if self.potions > 0:
-            self.life = (self.life + self.level) if (self.life + self.level < self.std_life) else self.std_life
+            calc = self.level * 2
+            self.life = (self.life + calc) if (self.life + calc < self.std_life) else self.std_life
             self.potions -= 1
         else:
             print("\tNo potions left\n")
@@ -76,7 +77,7 @@ class Player:
     def level_up(self):
         self.level += 1
         self.money += self.level
-        self.std_life += self.life
+        self.std_life += self.level + 2
     
     def __repr__(self) -> str:
         return f"[{self.name}:{self.tipo}:lv.{self.level}]->[{self.strength},{self.defence},{self.speed},{self.stamina}]"
@@ -108,6 +109,9 @@ class Boss:
         movimento = self.sequence[self.index]
         self.index = (self.index + 1) if (self.index < len(self.sequence) - 1) else 0
         return movimento
+
+    def get_attack(self):
+        return self.strength + self.speed + int(self.stamina / 2)
     
 
     def __repr__(self) -> str:

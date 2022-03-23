@@ -42,14 +42,14 @@ def fight(player, boss):
         if move != None:
             if move in ['l,','r']:
                 if (move == chefe_move) or (chefe_move == 'b'):
-                    dano = boss.strength + boss.speed
+                    dano = boss.get_attack()
                     player.get_damage(dano - player.get_defence(randint(0,10)))
                     print(f"{boss} gave {dano} of damage")
                 player.stamina += 1
 
             elif move == 'd':
                 if chefe_move in ['r','l','b']:
-                    dano = boss.strength + boss.speed
+                    dano = boss.get_attack()
                     player.get_damage(dano - (player.get_defence(10)))
                     print(f"{boss} gave {dano} of damage")
 
@@ -60,7 +60,7 @@ def fight(player, boss):
 
             elif move == 'h':
                 if (player.pos == chefe_move) or (chefe_move == 'b'):
-                    dano = boss.strength + boss.speed
+                    dano = boss.get_attack()
                     player.get_damage(dano - player.get_defence(randint(0,10)))
                     print(f"{boss} gave {dano} of damage")
 
@@ -72,7 +72,7 @@ def fight(player, boss):
 
             elif move == 'a':
                 if (player.pos == chefe_move) or (chefe_move == 'b'):
-                    dano = boss.strength + boss.speed
+                    dano = boss.get_attack()
                     p_dano = player.get_attack(randint(0,10))
                     player.get_damage(dano - player.get_defence(randint(0,10)))
                     boss.life -= p_dano
@@ -99,7 +99,7 @@ def fight(player, boss):
         # If he/she doesn't move
         else:
             if chefe_move in ['r','l','b']:
-                dano = boss.strength + boss.speed
+                dano = boss.get_attack()
                 player.get_damage(dano - player.defence)
                 print(f"{boss} gave {dano} of damage")
 
@@ -119,12 +119,18 @@ def fight(player, boss):
         # If one of them died
         if player.life <= 0:
             print(f"The player {player.name} was defetead by {boss}")
+
+            if randint(0,boss.std_life) < boss.speed:
+                print("You gain pity money")
+                player.money += 1
+
             lutando = False
         elif boss.life <= 0:
             print(f"The player {player.name} defetead {boss}")
             DEFEATED_BOSSES.append(boss)
             player.level_up()
             lutando = False
+        print()
 
     player.restart()
     boss.set_status()
@@ -133,30 +139,45 @@ def fight(player, boss):
 def menu(player, shop, bosses):
     rodando = True
     while rodando:
+        if len(DEFEATED_BOSSES) == len(BOSSES_NAMES):
+            print(f"{player.name} defeated everone! Congrats")
+            rodando = False
+            break
+
         print("----------ON THE MENU---------")
         print("(0 - Leave) (1 - Check profile) - (2 - Shop) (3 - Boss List)")
-        esc = int(input("What would you like to do?: "))
+        esc = input("What would you like to do?: ")
         print()
-        if esc == 0:
-            rodando = False
-        elif esc == 1:
-            print(f"{player} # {player.weapon} # ${player.money} # {player.potions} potions")
-            print()
-        elif esc == 2:
-            shop.introduce(player)
-            print()
-        elif esc == 3:
-            if isinstance(player.weapon, Weapon) == False:
-                print("You need a weapon, buddy")
-            else:
-                print("\nPlease, choose one of the bosses below: ")
-                for b in range(len(bosses)): print(f"[{b}] {bosses[b]} ({bosses[b] in DEFEATED_BOSSES})")
-                chefao = input("Your choice (by name): ")
-                chefao = bosses[BOSSES_NAMES.index(chefao)]
-                if chefao in DEFEATED_BOSSES:
-                    print("Oh man, you already defeated that one.\n")
+
+        if esc not in ['0','1','2','3']:
+            print("Wrong choice, buddy!")
+        else:
+            esc = int(esc)
+
+            if esc == 0:
+                rodando = False
+            elif esc == 1:
+                print(f"{player} # {player.weapon} # ${player.money} # {player.potions} potions")
+                print()
+            elif esc == 2:
+                shop.introduce(player)
+                print()
+            elif esc == 3:
+                if isinstance(player.weapon, Weapon) == False:
+                    print("You need a weapon, buddy")
                 else:
-                    fight(player, chefao)
+                    print("\nPlease, choose one of the bosses below: ")
+                    for b in range(len(bosses)): print(f"[{b}] {bosses[b]} ({bosses[b] in DEFEATED_BOSSES})")
+                    chefao = input("Your choice (by name): ")
+
+                    if chefao not in BOSSES_NAMES:
+                        print("This boss doesn't exist (or you wrote is name not precisely correct)\n")
+                    else:
+                        chefao = bosses[BOSSES_NAMES.index(chefao)]
+                        if chefao in DEFEATED_BOSSES:
+                            print("Oh man, you already defeated that one.\n")
+                        else:
+                            fight(player, chefao)
 
 if __name__ == '__main__':
     print("""

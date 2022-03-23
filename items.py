@@ -17,7 +17,7 @@ class Shop:
         'Dagger', 'Medium Sword', 'Long Sword', 'Heavy Axe', 'Katana', 'Bow&Arrows', 'Staff', 'Long Spear', 'Large Blade'
     ]
     W_STATS = [
-        [1,1,0], [2,2,4], [3,3,7], [5,6,10], [6,7,12], [7,8,15], [8,10,18], [9,11,21], [10,12,25]
+        [1,1,1], [2,2,6], [3,3,10], [5,6,15], [6,7,18], [7,8,26], [8,10,32], [9,11,43], [10,12,56]
     ] # Stats = [level, damage, cost]
 
     def __init__(self):

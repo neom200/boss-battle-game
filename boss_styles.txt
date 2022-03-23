@@ -1,7 +1,7 @@
 Sequence of Rights, Lefts, Boths, Defends and Heals
 d,r,l
-r,l,d,r,l,r,l,h
-r,l
+r,r,l,l
+r,d,l,d
 r,r,r,d,l,l
 l,r,h,l,l,b,l
 b,r,r,b,d,d,h
