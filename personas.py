@@ -1,10 +1,10 @@
 
 class Player:
     # strength - defence - speed - stamina
-    FIGHTER = [6, 3, 4, 7] 
-    PRIEST = [3, 6, 5, 7]
-    ELF = [4, 3, 6, 7]
-    ORC = [4, 3, 5, 8]
+    FIGHTER = [5, 2, 3, 7] 
+    PRIEST = [2, 5, 4, 7]
+    ELF = [3, 2, 5, 7]
+    ORC = [3, 2, 4, 8]
 
     def __init__(self, name, tipo):
         self.life = 20
@@ -19,7 +19,7 @@ class Player:
         self.type_status()
 
     def restart(self):
-        self.life = 5 * self.level if (self.level > 1) else (20 + (5 * (self.level - 1)))
+        self.life = (self.std_life + self.level - 1)
         self.std_life = self.life
         self.potions = self.level + 1
         self.pos = 'r'

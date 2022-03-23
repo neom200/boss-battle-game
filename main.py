@@ -45,13 +45,14 @@ def fight(player, boss):
                     dano = boss.get_attack()
                     player.get_damage(dano - player.get_defence(randint(0,10)))
                     print(f"{boss} gave {dano} of damage")
-                player.stamina += 1
+                    player.stamina -= 1
 
             elif move == 'd':
                 if chefe_move in ['r','l','b']:
                     dano = boss.get_attack()
                     player.get_damage(dano - (player.get_defence(10)))
                     print(f"{boss} gave {dano} of damage")
+                    player.stamina -= 1
 
                 elif chefe_move == 'h':
                     boss.life += int(boss.stamina / boss.speed)
@@ -62,40 +63,37 @@ def fight(player, boss):
                 if (player.pos == chefe_move) or (chefe_move == 'b'):
                     dano = boss.get_attack()
                     player.get_damage(dano - player.get_defence(randint(0,10)))
+                    player.stamina -= 1
                     print(f"{boss} gave {dano} of damage")
 
                 elif chefe_move == 'h':
                     boss.life += int(boss.stamina / boss.speed)
                     print(f"{boss} healed")
-                player.stamina += 1
                 player.drink_potion()
 
             elif move == 'a':
+                p_dano = player.get_attack(randint(0,10))
                 if (player.pos == chefe_move) or (chefe_move == 'b'):
                     dano = boss.get_attack()
-                    p_dano = player.get_attack(randint(0,10))
                     player.get_damage(dano - player.get_defence(randint(0,10)))
-                    boss.life -= p_dano
+                    boss.life -= (p_dano - boss.defence)
                     print(f"{boss} gave {dano} of damage")
                     print(f"{player.name} gave {p_dano} of damage")
 
                 elif chefe_move in ['l','r']:
-                    p_dano = player.get_attack(randint(0,10))
-                    boss.life -= p_dano
+                    boss.life -= (p_dano - boss.defence)
                     print(f"{player.name} gave {p_dano} of damage")
 
                 elif chefe_move == 'd':
-                    ataque = player.get_attack(randint(0,10))
-                    dano_no_chefe = (ataque - (boss.defence +  boss.stamina))
+                    dano_no_chefe = (p_dano - (boss.defence +  boss.stamina))
                     boss.life = (boss.life - dano_no_chefe) if dano_no_chefe > 0 else boss.life
-                    print(f"{player.name} gave {ataque} of damage")
+                    print(f"{player.name} gave {p_dano} of damage")
 
                 elif chefe_move == 'h':
-                    ataque = player.get_attack(randint(0,10))
-                    dano_no_chefe = (ataque - boss.defence)
+                    dano_no_chefe = (p_dano - boss.defence)
                     boss.life = (boss.life - dano_no_chefe) if dano_no_chefe > 0 else boss.life
                     boss.life += int(boss.stamina / boss.speed)
-                    print(f"{player.name} gave {ataque} of damage, but {boss} healed")
+                    print(f"{player.name} gave {p_dano} of damage, but {boss} healed")
         # If he/she doesn't move
         else:
             if chefe_move in ['r','l','b']:
