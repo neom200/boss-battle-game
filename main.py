@@ -3,7 +3,7 @@ from items import Shop, Weapon
 from random import randint
 #from utilities import compare_moves
 
-BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yth-jhin', 'Kai', 'Porpheus', 'Villean', 'Frosty']
+BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty']
 DEFEATED_BOSSES = []
 
 def set_boss_list():
