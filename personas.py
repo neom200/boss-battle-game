@@ -21,7 +21,7 @@ class Player:
     def restart(self):
         self.life = (self.std_life + self.level - 1)
         self.std_life = self.life
-        self.potions = self.level + 1
+        self.potions = self.level + 2
         self.pos = 'r'
         self.stamina = (self.level * 2) if (self.level * 2 >= 7) else 8
 
@@ -45,11 +45,13 @@ class Player:
     def get_attack(self, prob):
         self.stamina -= 1
         if self.stamina > 0:
+            if prob > 7:
+                return self.weapon.damage + self.strength + self.speed
             return self.weapon.damage + self.strength
         return 0
 
     def get_defence(self, prob):
-        if prob >= 6:
+        if prob > 6:
             self.stamina += 1
             return self.defence + self.speed
         else:

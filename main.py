@@ -24,7 +24,7 @@ def fight(player, boss):
     lutando = True
 
     while lutando:
-        print(f"\nBoss:{boss.life} <-> {player.name}:{player.life}?{player.stamina}")
+        print(f"\nBoss:{boss.life} <-> {player.name}:{player.life}?{player.stamina}@{player.potions}")
         move = input("Do a move: [r,l,a,d,h]: ").lower()
         if move == 'l' or move == 'r': player.move(move)
         elif move == 'a': player.get_attack(randint(0,10))
@@ -45,6 +45,10 @@ def fight(player, boss):
                     player.get_damage(dano - player.get_defence(randint(0,10)))
                     print(f"{boss} gave {dano} of damage")
                     player.stamina -= 1
+
+                elif chefe_move == 'h':
+                    boss.life += int(boss.stamina / boss.speed)
+                    print(f"{boss} healed")
 
             elif move == 'd':
                 if chefe_move in ['r','l','b']:
@@ -68,6 +72,7 @@ def fight(player, boss):
                 elif chefe_move == 'h':
                     boss.life += int(boss.stamina / boss.speed)
                     print(f"{boss} healed")
+
                 player.drink_potion()
 
             elif move == 'a':
