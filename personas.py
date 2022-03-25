@@ -1,4 +1,4 @@
-
+from items import Armor
 class Player:
     # strength - defence - speed - stamina
     FIGHTER = [6, 3, 4, 7] 
@@ -15,6 +15,7 @@ class Player:
         self.potions = 4
         self.pos = 'r'
         self.weapon = 'no weapon'
+        self.armor = Armor('None', 0, 0, 0)
         self.std_life = self.life
         self.type_status()
 
@@ -42,6 +43,9 @@ class Player:
     def set_weapon(self, item):
         self.weapon = item
 
+    def set_armor(self, item):
+        self.armor = item
+
     def get_attack(self, prob):
         self.stamina -= 1
         if self.stamina > 0:
@@ -53,9 +57,9 @@ class Player:
     def get_defence(self, prob):
         if prob > 6:
             self.stamina += 1
-            return self.defence + self.speed
+            return self.armor.damage + self.defence + self.speed
         else:
-            return self.defence
+            return self.armor.damage + self.defence
 
     def move(self, move):
         if move == 'r':

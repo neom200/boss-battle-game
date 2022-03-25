@@ -1,6 +1,6 @@
 # from genericpath import isdir
 from personas import Player, Boss
-from items import Shop, Weapon
+from items import Armor, Shop, Weapon
 from random import randint
 
 BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty']
@@ -168,6 +168,12 @@ def save_menu(player):
         'damage': player.weapon.damage,
         'cost': player.weapon.cost
     }
+    player_infos['ARMOR'] = {
+        'name': player.armor.name,
+        'level': player.armor.level,
+        'damage': player.armor.damage,
+        'cost': player.armor.cost
+    }
     player_infos['DEFEATEDS'] = [boss.name for boss in DEFEATED_BOSSES]
 
     with open(f"./saves/{player.name}_info.json", "w") as arquiv:
@@ -196,7 +202,7 @@ def menu(player, shop, bosses):
             if esc == 0:
                 rodando = False
             elif esc == 1:
-                print(f"{player} # {player.weapon} # ${player.money} # {player.potions} potions")
+                print(f"{player} # {player.weapon} # {player.armor} # ${player.money} # {player.potions} potions")
                 print()
             elif esc == 2:
                 shop.introduce(player)
@@ -243,6 +249,7 @@ if __name__ == '__main__':
                 potions = dados['POTIONS']
                 money = dados['MONEY']
                 weapon = dados['WEAPON']
+                armor = dados['ARMOR']
                 DEFEATED_BOSSES_NAMES = dados['DEFEATEDS']
 
                 SHOP = Shop()
@@ -256,6 +263,7 @@ if __name__ == '__main__':
                 JOGADOR.money = money
                 JOGADOR.potions = potions
                 JOGADOR.weapon = Weapon(weapon['name'], weapon['level'], weapon['damage'], weapon['cost'])
+                JOGADOR.armor = Armor(armor['name'], armor['level'], armor['damage'], armor['cost'])
                 JOGADOR.strength = status['strength']
                 JOGADOR.defence = status['defence']
                 JOGADOR.speed = status['speed']
