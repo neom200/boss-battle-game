@@ -55,11 +55,11 @@ class Shop:
 
         while on_shop:
             print("------ON THE SHOP-------")
-            print("(0) Buy Weapon - (1) Buy Armor - (2) Buy Potion - (3) Updgrade - (4) Leave")
+            print("(0) Buy Weapon - (1) Buy Armor - (2) Buy Potion - (3) Leave")
             esc = int(input(">> Your choice (by index): "))
 
             print()
-            if esc == 4:
+            if esc == 3:
                 on_shop = False
             elif esc == 0:
                 for w in range(len(self.weapons)): 
@@ -102,13 +102,5 @@ class Shop:
                 else:
                     player.potions += 1
                     print("Here it is!\n")
-
-            elif esc == 3:
-                calc = int((player.level * 10) / 2)
-                if calc > player.money:
-                    print(f"Sorry, you need ${calc} to upgrade from level {player.level}")
-                else:
-                    print("Here you go! Upgrade")
-                    player.level_up()
 
         print("Thanks for coming :)\n")

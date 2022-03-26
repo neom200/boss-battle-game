@@ -3,7 +3,7 @@ from personas import Player, Boss
 from items import Armor, Shop, Weapon
 from random import randint
 
-BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty']
+BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty', 'Shamack']
 DEFEATED_BOSSES = []
 
 def set_boss_list():
@@ -185,7 +185,7 @@ def menu(player, shop, bosses):
     rodando = True
     while rodando:
         if len(DEFEATED_BOSSES) == len(BOSSES_NAMES):
-            print(f"{player.name} defeated everone! Congrats")
+            print(f"{player.name} defeated everone! Congraulations, noble hero of the kingdown, now go and marry the princess, and together you both will live a happy life with the fame and glory the gods have given you!")
             rodando = False
             break
 
@@ -212,7 +212,7 @@ def menu(player, shop, bosses):
                     print("You need a weapon, buddy")
                 else:
                     print("\nPlease, choose one of the bosses below: ")
-                    for b in range(len(bosses)): print(f"[{b}] {bosses[b]} ({bosses[b] in DEFEATED_BOSSES})")
+                    for b in range(len(bosses)): print(f"[{b+1}] {bosses[b]} ({bosses[b] in DEFEATED_BOSSES})")
                     chefao = input("Your choice (by name): ")
 
                     if chefao not in BOSSES_NAMES:
@@ -231,9 +231,8 @@ if __name__ == '__main__':
     from json import load
 
     print("""
-        Welcome to the mini-game of Boss Fighting.
-        In this game you'll fight bosses (as the title sugests).
-        Good luck.
+    In the far lands of Habnamia, after the death of King Absalom III, head of the House of Hellosberg, the kingdown saw the arise of 12 dangerous and powerful monstrosities, and soon all land was quivering in fear.
+    Now you, fellow adventurer, has come from nothing but a humble family to complete the task given to all men by the Queen Rasphelia, wich is to defeat all 12 monsters, with the garantuee of being rewarded not only with prestigious, fame and glory, but also the right to marry the beautiful Princess Myrian.
     """)
 
     nome = input("But first, what is your name: ")

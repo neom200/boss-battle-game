@@ -92,7 +92,7 @@ class Player:
 class Boss:
     STATUS = open('boss_status.txt', 'r').read().split('\n')
     STYLES = open('boss_styles.txt', 'r').read().split('\n')
-    BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty']
+    BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty', 'Shamack']
 
     def __init__(self, name, description, ):
         self.name = name
