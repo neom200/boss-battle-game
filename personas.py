@@ -22,7 +22,7 @@ class Player:
     def restart(self):
         self.life = (self.std_life + self.level - 1)
         self.std_life = self.life
-        self.potions = self.level + 2
+        self.potions = (self.level - 1) if (self.level > 4) else 4
         self.pos = 'r'
         self.stamina = (self.level * 2) if (self.level * 2 >= 7) else 8
 
@@ -55,7 +55,7 @@ class Player:
         return 0
 
     def get_defence(self, prob):
-        if prob > 6:
+        if prob > 7:
             self.stamina += 1
             return self.armor.damage + self.defence + self.speed
         else:
@@ -83,7 +83,7 @@ class Player:
     def level_up(self):
         self.level += 1
         self.money += self.level
-        self.std_life += self.level + 2
+        self.std_life += self.level + 1
     
     def __repr__(self) -> str:
         return f"[{self.name}:{self.tipo}:lv.{self.level}]->[{self.strength},{self.defence},{self.speed},{self.stamina}]"
@@ -115,6 +115,9 @@ class Boss:
         movimento = self.sequence[self.index]
         self.index = (self.index + 1) if (self.index < len(self.sequence) - 1) else 0
         return movimento
+
+    def get_defence(self):
+        return self.defence + int(self.stamina / 3)
 
     def get_attack(self):
         return self.strength + self.speed + int(self.stamina / 2)
