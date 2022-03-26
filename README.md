@@ -1,7 +1,7 @@
 ﻿# boss-battle-game
 
     LORE
-In the far lands of Habnamia, after the death of King Absalom III, head of the House of Hellosberg, the kingdown saw the arise of 12 dangerous and powerful monstrosities, and soon all land was quivering in fear.
+In the far lands of Habnamia, after the death of King Absalom III, head of the House of Hellosberg, the kingdom saw the arise of 12 dangerous and powerful monstrosities, and soon all land was quivering in fear.
 Now you, fellow adventurer, has come from nothing but a humble family to complete the task given to all men by the Queen Rasphelia, wich is to defeat all 12 monsters, with the garantuee of being rewarded not only with prestige, fame and glory, but also the right to marry the beautiful Princess Myrian.
 
 ----------------------------------
