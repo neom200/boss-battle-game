@@ -8,6 +8,6 @@ b,r,r,b,d,d,h
 l,h,r,h,b,l,r,b
 l,h,r,b,b,b,l,d,d,r,b
 r,l,b,h,r,h,b,d,h,d,r,l,h
-r,l,h,d,l,h,r,r,d,r,h,b,d
-b,d,r,d,l,h,b,h,b,d,b,h,b,h,d,r,b,d,b,h
-r,r,r,l,d,r,l,l,b,h,b,d,d,r,b,l,r,d,d,b
+r,l,r,d,l,h,r,r,d,r,h,b,d
+b,d,r,d,l,h,b,h,b,d,b,d,b,l,d,r,b,d,b,h
+r,r,r,l,d,r,l,l,b,h,b,d,d,r,b,l,r,d,h,b
