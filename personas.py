@@ -1,4 +1,4 @@
-
+from items import Armor
 class Player:
     # strength - defence - speed - stamina
     FIGHTER = [6, 3, 4, 7] 
@@ -15,13 +15,14 @@ class Player:
         self.potions = 4
         self.pos = 'r'
         self.weapon = 'no weapon'
+        self.armor = Armor('None', 0, 0, 0)
         self.std_life = self.life
         self.type_status()
 
     def restart(self):
         self.life = (self.std_life + self.level - 1)
         self.std_life = self.life
-        self.potions = self.level + 2
+        self.potions = (self.level - 1) if (self.level > 4) else 4
         self.pos = 'r'
         self.stamina = (self.level * 2) if (self.level * 2 >= 7) else 8
 
@@ -42,6 +43,9 @@ class Player:
     def set_weapon(self, item):
         self.weapon = item
 
+    def set_armor(self, item):
+        self.armor = item
+
     def get_attack(self, prob):
         self.stamina -= 1
         if self.stamina > 0:
@@ -51,11 +55,11 @@ class Player:
         return 0
 
     def get_defence(self, prob):
-        if prob > 6:
+        if prob > 7:
             self.stamina += 1
-            return self.defence + self.speed
+            return self.armor.damage + self.defence + self.speed
         else:
-            return self.defence
+            return self.armor.damage + self.defence
 
     def move(self, move):
         if move == 'r':
@@ -79,7 +83,7 @@ class Player:
     def level_up(self):
         self.level += 1
         self.money += self.level
-        self.std_life += self.level + 2
+        self.std_life += self.level + 1
     
     def __repr__(self) -> str:
         return f"[{self.name}:{self.tipo}:lv.{self.level}]->[{self.strength},{self.defence},{self.speed},{self.stamina}]"
@@ -88,7 +92,7 @@ class Player:
 class Boss:
     STATUS = open('boss_status.txt', 'r').read().split('\n')
     STYLES = open('boss_styles.txt', 'r').read().split('\n')
-    BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty']
+    BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty', 'Shamack']
 
     def __init__(self, name, description, ):
         self.name = name
@@ -111,6 +115,9 @@ class Boss:
         movimento = self.sequence[self.index]
         self.index = (self.index + 1) if (self.index < len(self.sequence) - 1) else 0
         return movimento
+
+    def get_defence(self):
+        return self.defence + int(self.stamina / 3)
 
     def get_attack(self):
         return self.strength + self.speed + int(self.stamina / 2)
