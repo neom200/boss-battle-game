@@ -56,7 +56,12 @@ class Shop:
         while on_shop:
             print("------ON THE SHOP-------")
             print("(0) Buy Weapon - (1) Buy Armor - (2) Buy Potion - (3) Leave")
-            esc = int(input(">> Your choice (by index): "))
+            esc = input(">> Your choice (by index): ")
+
+            if esc in ['0','1','2','3']:
+                esc = int(esc)
+            else:
+                print("This option doesn't exist my friend!")
 
             print()
             if esc == 3:

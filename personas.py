@@ -1,10 +1,10 @@
 from items import Armor
 class Player:
     # strength - defence - speed - stamina
-    FIGHTER = [6, 3, 4, 7] 
-    PRIEST = [3, 6, 5, 7]
-    ELF = [4, 3, 6, 7]
-    ORC = [4, 3, 5, 8]
+    FIGHTER = [7, 4, 5, 8] 
+    PRIEST = [4, 7, 6, 8]
+    ELF = [5, 4, 7, 8]
+    ORC = [5, 4, 6, 9]
 
     def __init__(self, name, tipo):
         self.life = 20
@@ -12,7 +12,7 @@ class Player:
         self.tipo = tipo
         self.level = 1
         self.money = 1
-        self.potions = 4
+        self.potions = 5
         self.pos = 'r'
         self.weapon = 'no weapon'
         self.armor = Armor('None', 0, 0, 0)
@@ -49,14 +49,14 @@ class Player:
     def get_attack(self, prob):
         self.stamina -= 1
         if self.stamina > 0:
-            if prob > 7:
+            if prob > 6:
                 return self.weapon.damage + self.strength + self.speed
             return self.weapon.damage + self.strength
         return 0
 
     def get_defence(self, prob):
-        if prob > 7:
-            self.stamina += 1
+        self.stamina += 1
+        if prob > 6:
             return self.armor.damage + self.defence + self.speed
         else:
             return self.armor.damage + self.defence
@@ -110,17 +110,24 @@ class Boss:
         self.defence = int(seus_status[2])
         self.speed = int(seus_status[3])
         self.stamina = int(seus_status[4])
+        self.std_stamina = self.stamina
 
-    def get_movement(self, prob):
-        movimento = self.sequence[self.index]
-        self.index = (self.index + 1) if (self.index < len(self.sequence) - 1) else 0
-        return movimento
+    def get_movement(self):
+        if self.stamina > 0:
+            movimento = self.sequence[self.index]
+            self.index = (self.index + 1) if (self.index < len(self.sequence) - 1) else 0
+            return movimento
+        self.stamina += 1
+        return None
 
     def get_defence(self):
-        return self.defence + int(self.stamina / 3)
+        self.stamina += 1
+        return self.defence + int(self.std_stamina  / 3)
 
     def get_attack(self):
-        return self.strength + self.speed + int(self.stamina / 2)
+        if self.stamina > 0:
+            self.stamina -= 1
+            return self.strength + self.speed
     
 
     def __repr__(self) -> str:

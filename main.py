@@ -27,14 +27,11 @@ def fight(player, boss):
     while lutando:
         print(f"\nBoss:{boss.life} <-> {player.name}:{player.life}?{player.stamina}@{player.potions}")
         move = input("Do a move: [r,l,a,d,h]: ").lower()
-        if move == 'l' or move == 'r': player.move(move)
-        elif move == 'a': player.get_attack(randint(0,10))
-        elif move == 'd': player.get_defence(randint(0,10))
-        elif move == 'h': player.drink_potion()
-        else: move == None
+        if move == 'l' or move == 'r': 
+            player.move(move)
         player.stamina  = player.stamina if player.stamina >= 0 else 0
 
-        chefe_move = boss.get_movement(randint(0,10))
+        chefe_move = boss.get_movement()
 
         print(f'> {boss} did "{chefe_move}"')
 
@@ -45,34 +42,20 @@ def fight(player, boss):
                     dano = boss.get_attack() - player.get_defence(randint(0,10))
                     player.get_damage(dano)
                     print(f"{boss} gave {dano} of damage")
-                    player.stamina -= 1
-
-                elif chefe_move == 'h':
-                    boss.life += int(boss.stamina / boss.speed)
-                    print(f"{boss} healed")
 
             elif move == 'd':
                 if (player.pos == chefe_move) or (chefe_move == 'b'):
                     dano = boss.get_attack() - player.get_defence(randint(0,10)) 
                     player.get_damage(dano)
                     print(f"{boss} gave {dano} of damage")
-                    player.stamina -= 1
-
-                elif chefe_move == 'h':
-                    boss.life += int(boss.stamina / boss.speed)
-                    print(f"{boss} healed")
-                player.stamina += 1
+                    player.stamina += 1
 
             elif move == 'h':
                 if (player.pos == chefe_move) or (chefe_move == 'b'):
                     dano = boss.get_attack() - player.get_defence(randint(0,10))
                     player.get_damage(dano)
-                    player.stamina -= 1
+                    player.stamina += 1
                     print(f"{boss} gave {dano} of damage")
-
-                elif chefe_move == 'h':
-                    boss.life += int(boss.stamina / boss.speed)
-                    print(f"{boss} healed")
 
                 player.drink_potion()
 
@@ -96,11 +79,6 @@ def fight(player, boss):
                     boss.life = (boss.life - p_dano) if p_dano > 0 else boss.life
                     print(f"{player.name} gave {p_dano} of damage")
 
-                elif chefe_move == 'h':
-                    p_dano = p_dano - (boss.get_defence() + boss.stamina)
-                    boss.life = (boss.life - p_dano) if p_dano > 0 else boss.life
-                    boss.life += int(boss.stamina / boss.speed)
-                    print(f"{player.name} gave {p_dano} of damage, but {boss} healed")
         # If he/she doesn't move
         else:
             if chefe_move in ['r','l','b']:
@@ -110,10 +88,6 @@ def fight(player, boss):
 
             elif chefe_move == 'd':
                 print(f"{boss} defended")
-
-            elif chefe_move == 'h':
-                boss.life += int(boss.stamina / boss.speed)
-                print(f"{boss} healed")
 
         # To garantee non superior life
         if boss.life > boss.std_life:
@@ -125,9 +99,9 @@ def fight(player, boss):
         if player.life <= 0:
             print(f"The player {player.name} was defetead by {boss}")
 
-            if randint(0,boss.std_life) < boss.speed:
+            if randint(0, boss.std_life) < boss.speed:
                 print("You gain pity money")
-                player.money += 2
+                player.money += 1
 
             lutando = False
         elif boss.life <= 0:
@@ -202,7 +176,7 @@ def menu(player, shop, bosses):
             if esc == 0:
                 rodando = False
             elif esc == 1:
-                print(f"{player}\n{player.weapon} # {player.armor} # ${player.money} # {player.potions} potions")
+                print(f"{player}\n# {player.weapon} # {player.armor} # ${player.money} # {player.potions} potions")
                 print()
             elif esc == 2:
                 shop.introduce(player)
