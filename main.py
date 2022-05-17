@@ -21,6 +21,7 @@ def set_boss_list():
 def fight(player, boss):
     print("-------------ON COMBAT----------------")
     print("Remember: 'r' is right, 'l' is left, 'a' is attack, 'd' if defend, 'h' if heal (drink potion)")
+    print("Also remember what the data means: Boss <-> You:Life?Stamina@Potions")
     print(f"You enconter {boss}\n")
     lutando = True
 
@@ -38,20 +39,24 @@ def fight(player, boss):
         # If the player moves
         if move != None:
             if move in ['l,','r']:
-                if (move == chefe_move) or (chefe_move == 'b'):
+                if (move == chefe_move):
                     dano = boss.get_attack() - player.get_defence(randint(0,10))
+                    if randint(0, player.speed) > randint(0, boss.speed):
+                        dano -= player.get_defence(randint(0,10))
                     player.get_damage(dano)
                     print(f"{boss} gave {dano} of damage")
+                
+                player.stamina += 1
 
             elif move == 'd':
-                if (player.pos == chefe_move) or (chefe_move == 'b'):
+                if (player.pos == chefe_move):
                     dano = boss.get_attack() - player.get_defence(randint(0,10)) 
                     player.get_damage(dano)
                     print(f"{boss} gave {dano} of damage")
                     player.stamina += 1
 
             elif move == 'h':
-                if (player.pos == chefe_move) or (chefe_move == 'b'):
+                if (player.pos == chefe_move):
                     dano = boss.get_attack() - player.get_defence(randint(0,10))
                     player.get_damage(dano)
                     player.stamina += 1
@@ -61,7 +66,7 @@ def fight(player, boss):
 
             elif move == 'a':
                 p_dano = player.get_attack(randint(0,10))
-                if (player.pos == chefe_move) or (chefe_move == 'b'):
+                if (player.pos == chefe_move):
                     dano = boss.get_attack() - player.get_defence(randint(0,10))
                     player.get_damage(dano if dano > 0 else 0)
                     p_dano = p_dano - boss.get_defence()
@@ -99,7 +104,7 @@ def fight(player, boss):
         if player.life <= 0:
             print(f"The player {player.name} was defetead by {boss}")
 
-            if randint(0, boss.std_life) < boss.speed:
+            if randint(0, boss.std_life) < boss.stamina:
                 print("You gain pity money")
                 player.money += 1
 
@@ -265,4 +270,4 @@ if __name__ == '__main__':
 
     menu(JOGADOR, SHOP, BOSSES)
 
-    print("Thank you for playing :)")
+    print("Thank you for playing:)")

@@ -26,9 +26,9 @@ class Player:
         self.pos = 'r'
         self.stamina = (self.level * 2) if (self.level * 2 >= 7) else 8
 
-        self.strength += 1
-        self.defence += 1
-        self.speed += 1
+        # self.strength += 1
+        # self.defence += 1
+        # self.speed += 1
 
     def type_status(self):
         if self.tipo == 'fighter':
@@ -122,7 +122,7 @@ class Boss:
 
     def get_defence(self):
         self.stamina += 1
-        return self.defence + int(self.std_stamina  / 3)
+        return self.defence + self.speed
 
     def get_attack(self):
         if self.stamina > 0:

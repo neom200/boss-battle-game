@@ -24,14 +24,14 @@ class Shop:
         'Dagger', 'Medium Sword', 'Long Sword', 'Heavy Axe', 'Katana', 'Bow&Arrows', 'Staff', 'Long Spear', 'Large Blade'
     ]
     W_STATS = [
-        [1,1,1], [2,2,5], [3,3,8], [5,6,13], [6,7,15], [7,8,22], [8,10,28], [9,11,34], [10,12,39]
+        [1,1,1], [2,3,6], [3,4,9], [5,7,14], [6,8,16], [7,9,23], [8,12,29], [9,13,35], [10,15,40]
     ] # Stats = [level, damage, cost]
 
     A_NAMES = [
         'Bandit Armor', 'Leather Armor', 'Copper Armor', 'Silver Armor', 'Golden Armor', 'Iron Armor', 'Steel Armor', 'Obsidian Armor'
     ]
     A_STATS = [
-        [2,2,5], [3,3,8], [5,6,13], [6,7,15], [7,8,22], [8,10,28], [9,11,34], [10,12,39]
+        [2,3,5], [3,4,9], [5,7,14], [6,8,16], [7,9,23], [8,11,29], [9,12,35], [10,15,40]
     ] # Stats = [level, protection, cost]
 
     def __init__(self):
