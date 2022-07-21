@@ -1,5 +1,6 @@
-from items import Armor
 from random import randint
+from items import Armor
+
 class Player:
     # strength - defence - speed - stamina
     FIGHTER = [7, 4, 5, 8] 
@@ -54,7 +55,7 @@ class Player:
             return int(self.defence / 2)
         elif combo == ['d','a','d'] and move == 'a':
             return int(self.strength / 3)
-
+        self.movements = []
         return 0
 
     def set_weapon(self, item):
@@ -105,9 +106,26 @@ class Player:
         self.level += 1
         self.money += self.level
         self.std_life += self.level + 1
+
+        if self.tipo == 'fighter':
+            self.strength += 3
+            self.defence += 2
+            self.speed += 1 
+        elif self.tipo == 'priest':
+            self.strength += 1
+            self.defence += 3
+            self.speed += 2 
+        elif self.tipo == 'elf':
+            self.strength += 2
+            self.defence += 1
+            self.speed += 3
+        elif self.tipo == 'orc':
+            self.strength += 2
+            self.defence += 3
+            self.speed += 1
     
     def __repr__(self) -> str:
-        return f"[{self.name}:{self.tipo}:lv.{self.level}]->[{self.strength},{self.defence},{self.speed},{self.stamina}]"
+        return f"[{self.name}:{self.tipo}:lv.{self.level}]->[{self.strength} Att,{self.defence} Def,{self.speed} Spd,{self.stamina} Stm]"
 
 # -----------------------------------------------------------------------
 class Boss:
@@ -124,6 +142,7 @@ class Boss:
         seus_status = self.STATUS[self.BOSSES_NAMES.index(self.name) + 1].split(',')
         self.sequence = self.STYLES[self.BOSSES_NAMES.index(self.name) + 1].split(',')
         self.index = 0
+        self.charging = 0
 
         self.life = int(seus_status[0])
         self.std_life = self.life
@@ -137,18 +156,28 @@ class Boss:
         if self.stamina > 0:
             movimento = self.sequence[self.index]
             self.index = (self.index + 1) if (self.index < len(self.sequence) - 1) else 0
+            self.charging += 1
             return movimento
         self.stamina += 1
         return None
 
     def get_defence(self):
         self.stamina += 1
-        return self.defence + randint(0, self.speed)
+        return self.defence + self.speed + self.do_special('d')
 
     def get_attack(self):
         if self.stamina > 0:
             self.stamina -= 1
-            return self.strength + randint(0, self.speed)
+            return self.strength + self.speed + self.do_special('a')
+
+    def do_special(self, move):
+        if randint(1,100) > 90:
+            if move == 'a':
+                return int(self.strength / 2)
+            elif move == 'd':
+                return int(self.defence / 2)
+            self.charging = 0
+        return 0
     
 
     def __repr__(self) -> str:

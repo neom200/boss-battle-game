@@ -33,7 +33,6 @@ def fight(player, boss):
         player.stamina  = player.stamina if player.stamina >= 0 else 0
 
         chefe_move = boss.get_movement()
-
         print(f'> {boss} did "{chefe_move}"')
 
         # If the player moves
