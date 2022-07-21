@@ -1,4 +1,5 @@
 from items import Armor
+from random import randint
 class Player:
     # strength - defence - speed - stamina
     FIGHTER = [7, 4, 5, 8] 
@@ -18,6 +19,7 @@ class Player:
         self.armor = Armor('None', 0, 0, 0)
         self.std_life = self.life
         self.type_status()
+        self.movements = []
 
     def restart(self):
         self.life = (self.std_life + self.level - 1)
@@ -25,7 +27,7 @@ class Player:
         self.potions = (self.level - 1) if (self.level > 4) else 4
         self.pos = 'r'
         self.stamina = (self.level * 2) if (self.level * 2 >= 7) else 8
-
+        self.movements = []
         # self.strength += 1
         # self.defence += 1
         # self.speed += 1
@@ -40,6 +42,21 @@ class Player:
         elif self.tipo == 'orc':
             self.strength, self.defence, self.speed, self.stamina = self.ORC
 
+    def do_combo(self, move):
+        combo = self.movements[-3:]
+        if combo == ['a','a','a'] and move == 'a':
+            return int(self.strength / 2)
+        elif combo == ['d','d','d'] and move == 'd':
+            return self.defence * 2
+        elif combo == ['r','l','r'] and move == 'l':
+            return int(self.defence / 2)
+        elif combo == ['l','r','l'] and move == 'r':
+            return int(self.defence / 2)
+        elif combo == ['d','a','d'] and move == 'a':
+            return int(self.strength / 3)
+
+        return 0
+
     def set_weapon(self, item):
         self.weapon = item
 
@@ -47,6 +64,7 @@ class Player:
         self.armor = item
 
     def get_attack(self, prob):
+        self.movements.append('a')
         self.stamina -= 1
         if self.stamina > 0:
             if prob > 6:
@@ -55,6 +73,7 @@ class Player:
         return 0
 
     def get_defence(self, prob):
+        self.movements.append('d')
         self.stamina += 1
         if prob > 6:
             return self.armor.damage + self.defence + self.speed
@@ -63,8 +82,10 @@ class Player:
 
     def move(self, move):
         if move == 'r':
+            self.movements.append('r')
             self.pos = 'r'
         elif move == 'l':
+            self.movements.append('l')
             self.pos = 'l'
 
     def drink_potion(self):
@@ -122,12 +143,12 @@ class Boss:
 
     def get_defence(self):
         self.stamina += 1
-        return self.defence + self.speed
+        return self.defence + randint(0, self.speed)
 
     def get_attack(self):
         if self.stamina > 0:
             self.stamina -= 1
-            return self.strength + self.speed
+            return self.strength + randint(0, self.speed)
     
 
     def __repr__(self) -> str:

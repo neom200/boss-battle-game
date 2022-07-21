@@ -40,7 +40,7 @@ def fight(player, boss):
         if move != None:
             if move in ['l,','r']:
                 if (move == chefe_move):
-                    dano = boss.get_attack() - player.get_defence(randint(0,10))
+                    dano = boss.get_attack() - player.get_defence(randint(0,10)) - player.do_combo(move)
                     if randint(0, player.speed) > randint(0, boss.speed):
                         dano -= player.get_defence(randint(0,10))
                     player.get_damage(dano)
@@ -50,7 +50,7 @@ def fight(player, boss):
 
             elif move == 'd':
                 if (player.pos == chefe_move):
-                    dano = boss.get_attack() - player.get_defence(randint(0,10)) 
+                    dano = boss.get_attack() - player.get_defence(randint(0,10)) - player.do_combo(move)
                     player.get_damage(dano)
                     print(f"{boss} gave {dano} of damage")
                     player.stamina += 1
@@ -65,9 +65,9 @@ def fight(player, boss):
                 player.drink_potion()
 
             elif move == 'a':
-                p_dano = player.get_attack(randint(0,10))
+                p_dano = player.get_attack(randint(0,10)) + player.do_combo(move)
                 if (player.pos == chefe_move):
-                    dano = boss.get_attack() - player.get_defence(randint(0,10))
+                    dano = boss.get_attack() - player.get_defence(randint(0,10)) - player.do_combo(move)
                     player.get_damage(dano if dano > 0 else 0)
                     p_dano = p_dano - boss.get_defence()
                     boss.life = boss.life - p_dano if p_dano > 0 else boss.life
