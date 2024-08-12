@@ -1,5 +1,6 @@
 from random import randint
 from items import Armor
+from definitions import BOSS_STATUS, BOSS_STYLES
 
 class Player:
     # strength - defence - speed - stamina
@@ -134,8 +135,10 @@ class Player:
 
 # -----------------------------------------------------------------------
 class Boss:
-    STATUS = open('boss_status.txt', 'r').read().split('\n')
-    STYLES = open('boss_styles.txt', 'r').read().split('\n')
+    STATUS = BOSS_STATUS.split('\n')
+    #STATUS = open('boss_status.txt', 'r').read().split('\n')
+    STYLES = BOSS_STYLES.split('\n')
+    #STYLES = open('boss_styles.txt', 'r').read().split('\n')
     BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty', 'Shamack']
 
     def __init__(self, name, description, ):

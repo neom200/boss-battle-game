@@ -2,11 +2,22 @@
 from personas import Player, Boss
 from items import Armor, Shop, Weapon
 from random import randint
+from definitions import BOSSES
 
 BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty', 'Shamack']
 DEFEATED_BOSSES = []
 
 def set_boss_list():
+    boss_list = BOSSES.split('\n')
+    LISTONA = []
+    
+    for boss in boss_list:
+        nome, description = boss.split(',')
+        LISTONA.append(Boss(nome, description))
+
+    return LISTONA
+
+"""def set_boss_list():
     boss_list = open('bosses.txt', 'r').read().split('\n')
     LISTONA = []
 
@@ -14,7 +25,7 @@ def set_boss_list():
         nome, description = boss.split(',')
         LISTONA.append(Boss(nome, description))
 
-    return LISTONA
+    return LISTONA"""
 
 # ------------------------------------------------------------
 
