@@ -3,6 +3,7 @@ from personas import Player, Boss
 from items import Armor, Shop, Weapon
 from random import randint
 from definitions import BOSSES
+import json
 
 BOSSES_NAMES = ['Pupu', 'Harold', 'Manny', 'Grudge', 'Garfor', 'Nemus', 'Yaijin', 'Kai', 'Porpheus', 'Villean', 'Frosty', 'Shamack']
 DEFEATED_BOSSES = []
@@ -168,8 +169,14 @@ def save_menu(player):
     }
     player_infos['DEFEATEDS'] = [boss.name for boss in DEFEATED_BOSSES]
 
-    with open(f"saves/{player.name}_info.json", "wb") as arquiv:
-        dump(bytes(player_infos), arquiv)
+    save_path = f'saves/{player.name}_info.json'
+    try:
+        with open(save_path, "w") as arquiv:
+            json.dump(player_infos, arquiv, indent=4)
+    except Exception as e:
+        raise Exception(f"Não foi possivel salvar o status atual. Motivo: {str(e)}")
+
+    return save_path
 
     print(f"{player.name}'s data saved successfully.\n")
 
@@ -217,8 +224,9 @@ def menu(player, shop, bosses):
                         else:
                             fight(player, chefao)
             elif esc == 4:
-                # save_menu(player)
-                print("The save option is under construction, im sorry :(\n")
+                file = save_menu(player)
+                print("#> Dados do jogador salvos em:", file)
+                #print("The save option is under construction, im sorry :(\n")
 
 def fix_class_choice(choice):
     if choice == '0' or choice == 'fighter' or choice == 'Fighter':
