@@ -6,7 +6,7 @@ class Player:
     # strength - defence - speed - stamina
     FIGHTER = [7, 4, 5, 8] 
     PRIEST = [4, 7, 6, 8]
-    ELF = [5, 4, 7, 8]
+    ELF = [5, 4, 8, 6]
     ORC = [6, 4, 6, 9]
 
     def __init__(self, name, tipo):
