@@ -13,5 +13,11 @@ The common keywords used for the moves are:
 'r' = right (going to/attacking at the right location)
 'l' = left (going to/attacking at the left location)
 'd' = defending
-'h' = healing
-'b' = both (when the boss attacks both left and right at the same time)
+'h' = healing (use potion)
+
+At the beginning of the game, you choose your character's name. The name will be used to save your progress, so if you resume the game, you can just type the same name and the game will ask if you want to rewrite the save or use the same one.
+In the initial menu, there are options to shop, check your profile, view the monster list, and exit the game. You must visit the shop to get your first free weapon: the “Dagger”; the game will not let you fight any monsters before that.
+In the shop, you can buy weapons, armor, and regeneration potions.
+In the enemy list, you can see each of the 12 bosses. You can only face those you have not yet defeated.
+During the game, you see information on the screen about the boss's life, your life, your stamina, and your healing potions. You start in the right position. Attacking consumes stamina, and you need stamina to attack. Defending regenerates stamina.
+Each boss has a repeating attack pattern, alternating between attacking on the right, on the left, or defending
