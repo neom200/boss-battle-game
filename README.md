@@ -1,32 +1,91 @@
-﻿# boss-battle-game
+﻿# 🗡️ The Guardians of Habnamia: Terminal Boss Battle
 
-    LORE
-In the far lands of Habnamia, after the death of King Absalom III, head of the House of Hellosberg, the kingdom saw the arise of 12 dangerous and powerful monstrosities, and soon all land was quivering in fear.
-Now you, fellow adventurer, has come from nothing but a humble family to complete the task given to all men by the Queen Rasphelia, wich is to defeat all 12 monsters, with the garantuee of being rewarded not only with prestige, fame and glory, but also the right to marry the beautiful Princess Myrian.
+Bem-vindo às terras distantes de **Habnamia**. Após a morte do Rei Absalom III, o reino mergulhou no caos com o surgimento de 12 criaturas monstruosas. Como um aventureiro humilde, sua missão — dada pela Rainha Rasphelia — é derrotar esses monstros para conquistar fama, glória e a mão da Princesa Myrian.
 
-----------------------------------
-This project was done in 6 hours, and erros were fixed later.
-This game is a simple boss fighting game, where the player has to defeat differente bosses with different sequences of move each.
+Este é um RPG de combate por turnos focado em estratégia e reflexos, rodando inteiramente no seu terminal.
 
-The common keywords used for the moves are:
-'a' = attack
-'r' = right (going to the right location)
-'l' = left (going to the left location)
-'d' = defending
-'h' = healing
+---
 
-----------------------------------
-    [Game Characteristics]
+## 🎮 Como Jogar
 
-When you start the game, you will choose a name for your character. The game's save system is based on the name, so if there is a save with the same name as the one you chose, the game will ask you if you want to use this existing save or overwrite it with a new one. By default, the game creates a folder called “saves” in the directory where the game's executable is, but just in case, you can create this folder beforehand if you like.
+Para iniciar sua jornada, execute o script principal:
 
-If you create a new save, or overwrite an existing one, you'll have the chance to choose between four classes: Fighter, Priest, Elf and Orc. There are four main attributes that your character has (strength, defense, stamina and life) and each of the classes is focused on being better at one of these attributes: Fighter focuses on strength, Priest focuses on defense, Elf focuses on stamina, and Orc focuses on life.
+```bash
+python3 main.py
+```
 
-In the main menu there is an option to buy items in the store. Money is earned by killing bosses or, when you die to one of them, through a small chance of getting 'pity money'. In the store you can buy weapons, armor and potions. Potions are exclusively for single use and are used to partially restore life during a battle.
+### Comandos de Menu
+No menu principal, você pode navegar usando números:
+- `0`: Sair do jogo.
+- `1`: Ver perfil (Status, Equipamento, Ouro).
+- `2`: Visitar a Loja (Comprar armas, armaduras e poções).
+- `3`: Lista de Bosses (Escolha seu próximo desafio pelo nome).
+- `4`: Salvar progresso.
 
-During battles, there are two positions in which your character can stand: left (L) and right (R). Bosses have a sequence of movements, which always include attacking from the left, attacking from the right and defending yourself. You avoid attacks from one side if you are on the other.
-During battles, there will be some important information next to your name, which will be in the format [Position]:{Life}?{Stamina}@{Potions}. Stamina determines your ability to attack, each attack reduces your stamina by 1 (if you see a “-1” in stamina, ignore it, it's supposed to be zero but it's bugged) and defending boosts your stamina by 1.
+---
 
-You can only fight bosses you haven't defeated yet.
+## 🔥 Sistema de Combate
 
-Good luck in your gameplay!
+O combate é dinâmico e exige atenção à sua **Posição** e **Stamina**.
+
+### Comandos de Batalha:
+- `a`: **Atacar** - Gasta 1 stamina. Causa dano baseado em sua força e arma.
+- `d`: **Defender** - Aumenta sua defesa para o próximo turno e recupera 1 stamina.
+- `h`: **Curar** - Bebe uma poção para recuperar vida. Recupera 1 stamina.
+- `l` / `r`: **Mover (Esquerda/Direita)** - Muda sua posição no campo de batalha para desviar de ataques. Recupera 1 stamina.
+
+> [!IMPORTANT]
+> **Posicionamento**: Muitos ataques de bosses são direcionais. Se o boss atacar para a direita (`r`) e você estiver na direita, você receberá dano. Mova-se no momento certo!
+
+### Sistema de Combos
+Realizar sequências específicas de movimentos libera bônus:
+- **Combo de Ataque**: Sequências de ataques (`a, a, a`) podem causar dano extra.
+- **Combo de Defesa**: Defender repetidamente (`d, d, d`) garante uma proteção massiva.
+- **Evasão**: Mover-se estrategicamente (`r, l, r`) pode aumentar sua defesa temporariamente.
+
+---
+
+## 🛡️ Atributos e Itens
+
+### Classes de Personagem
+- **Fighter**: Equilibrado, com foco em força e combate direto.
+- **Priest**: Alta defesa e maior capacidade de cura.
+- **Elf**: Ágil, focado em velocidade para desviar de ataques.
+- **Orc**: Grande resistência e stamina para lutas prolongadas.
+
+### Atributos:
+- **Strength (Att)**: Define seu dano básico.
+- **Defence (Def)**: Reduz o dano recebido.
+- **Speed (Spd)**: Aumenta chances de acerto crítico e esquiva.
+- **Stamina (Stm)**: Necessária para atacar. Se chegar a 0, você não poderá golpear!
+
+### A Loja
+Use o ouro obtido ao derrotar monstros para evoluir:
+- **Armas**: De Adagas a Lâminas Gigantes, cada uma aumenta seu dano.
+- **Armaduras**: Do Couro ao Obsidiana, aumentam sua mitigação de dano.
+- **Poções**: Essenciais para sobreviver a batalhas longas.
+
+---
+
+## 👹 Os 12 Desafios
+
+Sua jornada o levará a enfrentar desde criaturas trapaceiras até dragões ancestrais. Alguns dos nomes que ecoam nos pesadelos de Habnamia são:
+- *Pupu, o Tolo*
+- *Nemus, o Dragão de Água*
+- *Shamack, o Abismo Eterno*
+
+Cada boss possui um padrão de ataque único. Observe, aprenda e adapte sua estratégia!
+
+---
+
+## ⚙️ Instalação e Requisitos
+
+- **Linguagem**: Python 3.x
+- **Dependências**: Nenhuma (usa apenas bibliotecas padrão como `random` e `json`).
+
+Para rodar, basta clonar o repositório e executar:
+```bash
+python main.py
+```
+
+*Boa sorte, herói. Habnamia conta com você!*
